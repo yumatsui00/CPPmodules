@@ -12,11 +12,14 @@ private:
 	std::string	_phoneNumber;
 	std::string	_darkestSecret;
 	std::string	_index;
+	std::string	_getInput(std::string	str) const;
 public:
     Contact();
     ~Contact();
-	void	init();
-	void	setIndex();
+	void	init(int i);
+	void	printer(std::string str) const;
+	void	display(int i) const;
+	void	printallinfo(int i);
 };
 
 # endif
