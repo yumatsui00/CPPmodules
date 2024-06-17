@@ -1,7 +1,13 @@
 #include "Zombie.hpp"
 
-int	main( void ) {
-	std::string	name = "zombie";
+#define N 11
+#define NAME "ZOMBIE_"
 
-	Zombie *biohazard = zombieHorde(10, name)
+int	main( void ) {
+	Zombie *biohazard = zombieHorde(NAME, N);
+	for (int i = 0; i < N; i++) {
+		biohazard[i].announce();
+	}
+	delete[] biohazard;
+	return 0;
 }

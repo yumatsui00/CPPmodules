@@ -1,7 +1,11 @@
 #include "Zombie.hpp"
 
-void	zombieHorde( int N, std::string name) {
+Zombie	*zombieHorde( std::string name, int N) {
+	if (N <= 0)
+		return NULL;
 	Zombie	*biohazard = new Zombie[N];
-		
-	return ;
+	for (int i = 0; i < N; i++) {
+		biohazard[i].setName(name, i);
+	}
+	return biohazard;
 }

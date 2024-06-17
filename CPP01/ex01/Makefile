@@ -1,9 +1,9 @@
-CC = c++
+CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
-DEBUG = -g -fsanitize=address
-SRCS = main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
+DEBUG = -g -fsanitizer=integer -fsanitize=address -fsanitize=leak
+SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
-TARGET = ex00
+TARGET = ex01
 TARGET1 = debug
 
 all: $(TARGET)
@@ -39,7 +39,7 @@ $(TARGET1): $(OBJS)
 	@echo $(BRIGHT_YELLOW)
 	$(CC) $(CCFLAGS) -o  $@ $^
 	@echo
-	@echo FSANITIZE=ADDRESS DONE
+	@echo Make debug DONE
 
 %.o: %.c
 	$(CC) $(CCFLAGS) -o $@ -c $<
