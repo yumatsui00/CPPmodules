@@ -1,4 +1,5 @@
 #include "PhoneBook.hpp"
+#include <sstream>
 
 PhoneBook::PhoneBook(){
 }
@@ -29,6 +30,7 @@ void	PhoneBook::add() {
 
 void	PhoneBook::search() {
 	bool	isvalid = false;
+	std::string	tmp= "";
 	int		input = -1;
 
 	std::cout << "====================CONTACT====================" << std::endl;
@@ -38,7 +40,13 @@ void	PhoneBook::search() {
 		this->_contacts[i].display(i);
 	while (isvalid == false) {
 		std::cout << "Please enter the Conact ID: " << std::flush;
-		std::cin >> input;
+		std::getline(std::cin, tmp);
+		std::istringstream iss(tmp);
+		if (!(iss >> input)) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "\nInvalid ID. Please try again" << std::flush;
+		}
 		if (std::cin.good() && (input >= 0 && input <= 7)) {
 			isvalid = true;
 		} else {

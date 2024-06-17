@@ -1,23 +1,7 @@
-#include "PhoneBook.hpp"
+#include "Zombie.hpp"
 
-int main(){
-	PhoneBook	book;
-	std::string	input = "";
-	size_t			i = 0;
+int	main( void ) {
+	std::string	name = "zombie";
 
-	book.usage(0);
-	while (input.compare("EXIT")) {
-		if (input.compare("ADD") == 0) {
-			book.add();
-		} else if (input.compare("SEARCH") == 0) {
-			book.search();
-		} else {
-			if (i++)
-				std::cout << "       Invalid Input. Please try again!" << std::flush;
-			book.usage(1);
-		}
-		std::cout << " > "; 
-		std::cin >> input;
-	}
-	return 0;
+	Zombie *biohazard = zombieHorde(10, name)
 }

@@ -16,8 +16,8 @@ int main(){
 				std::cout << "       Invalid Input. Please try again!" << std::flush;
 			book.usage(1);
 		}
-		std::cout << " > "; 
-		std::cin >> input;
+		std::cout << " > ";
+		std::getline(std::cin, input);
 	}
 	return 0;
 }

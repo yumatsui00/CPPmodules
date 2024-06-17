@@ -1,9 +1,9 @@
 CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
 DEBUG = -g -fsanitize=address
-SRCS = main.cpp PhoneBook.cpp Contact.cpp
+SRCS = main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
 OBJS = $(SRCS:.cpp=.o)
-TARGET = phonebook
+TARGET = ex00
 TARGET1 = debug
 
 all: $(TARGET)
