@@ -18,6 +18,10 @@ int main(){
 		}
 		std::cout << " > ";
 		std::getline(std::cin, input);
+		if (std::cin.eof()) {
+			std::cout << "EXIT" << std::endl;
+			break ;
+		}
 	}
 	return 0;
 }

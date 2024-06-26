@@ -13,6 +13,10 @@ std::string	Contact::_getInput(std::string str) const {
 	while (isvalid == false) {
 		std::cout << str << std::flush;
 		std::getline(std::cin, input);
+		if (std::cin.eof()) {
+			std::cout << "\nEXIT" << std::endl;
+			exit(0);
+		}
 		if (std::cin.good() && !input.empty())
 			isvalid = true;
 		else {

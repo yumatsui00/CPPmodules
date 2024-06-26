@@ -1,4 +1,4 @@
-CC = c++
+CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
 DEBUG = -g -fsanitize=address
 SRCS = megaphone.cpp

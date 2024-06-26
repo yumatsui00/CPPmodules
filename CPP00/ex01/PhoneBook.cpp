@@ -41,13 +41,16 @@ void	PhoneBook::search() {
 	while (isvalid == false) {
 		std::cout << "Please enter the Conact ID: " << std::flush;
 		std::getline(std::cin, tmp);
+		if (std::cin.eof()) {
+			std::cout << "\nEXIT" << std::endl;
+			exit(0);
+		}
 		std::istringstream iss(tmp);
 		if (!(iss >> input)) {
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nInvalid ID. Please try again" << std::flush;
-		}
-		if (std::cin.good() && (input >= 0 && input <= 7)) {
+		} else if (std::cin.good() && (input >= 0 && input <= 7)) {
 			isvalid = true;
 		} else {
 			std::cin.clear();
