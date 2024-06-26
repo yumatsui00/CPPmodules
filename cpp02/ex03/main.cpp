@@ -9,13 +9,11 @@ int main( void ) {
 	Point	a(0, 0);
 	Point	b(2, 2);
 	Point	c(-2, 2);
-	Point	point(1, 1);
+	Point	point(0, 1);
 
 	if (bsp(a, b, c, point) == true)
-		std::cout << "true" << std::endl;
+		std::cout << "The point is in the triangle!" << std::endl;
 	else
-		std::cout << "false" << std::endl;
+		std::cout << "False" << std::endl;
 	return 0;
 }
-
-//float 型　（単精度浮動小数点数型）　のビット表現 32bit
