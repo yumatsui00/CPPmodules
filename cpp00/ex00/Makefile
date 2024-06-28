@@ -3,7 +3,7 @@ CCFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
 DEBUG = -g -fsanitize=address
 SRCS = megaphone.cpp
 OBJS = $(SRCS:.cpp=.o)
-TARGET = mega
+TARGET = megaphone
 TARGET1 = debug
 
 all: $(TARGET)

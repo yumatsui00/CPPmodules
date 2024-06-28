@@ -1,9 +1,9 @@
 CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
-DEBUG = -g -fsanitize=address
+DEBUG = -g -fsanitizer=integer -fsanitize=address -fsanitize=leak
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
-TARGET = ex02
+TARGET = ex00
 TARGET1 = debug
 
 all: $(TARGET)
@@ -39,7 +39,7 @@ $(TARGET1): $(OBJS)
 	@echo $(BRIGHT_YELLOW)
 	$(CC) $(CCFLAGS) -o  $@ $^
 	@echo
-	@echo FSANITIZE=ADDRESS DONE
+	@echo Make debug DONE
 
 %.o: %.c
 	$(CC) $(CCFLAGS) -o $@ -c $<
@@ -61,8 +61,7 @@ fclean:
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA) ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
 	@echo $(RED)┃┃ $(BRIGHT_MAGENTA) ╱╱┃╰╮┃╰╮┃┻╮┃┣┫┃┃┃┃┃┃┃┃┃╭┃┃╮┃┃┃┃┃╰╮┃╭╮╭╮╭╮
 	@echo $(RED)╰╯ $(BRIGHT_MAGENTA)╱╱ ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
-
-maclean:
+test:
 	@make all
 	@make clean
 

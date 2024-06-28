@@ -9,9 +9,6 @@ int main(int argc, char *argv[]) {
 		for (size_t i = 0; i < args.size(); ++i) {
 			std::transform(args[i].begin(), args[i].end(), args[i].begin(), ::toupper);
 			std::cout << args[i];
-			if (i < args.size() - 1) {
-				std::cout << " ";
-			}
 		}
 		std::cout << std::endl;
 	}

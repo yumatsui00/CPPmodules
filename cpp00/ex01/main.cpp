@@ -3,7 +3,7 @@
 int main(){
 	PhoneBook	book;
 	std::string	input = "";
-	size_t			i = 0;
+	size_t		i = 0;
 
 	book.usage(0);
 	while (input.compare("EXIT")) {
