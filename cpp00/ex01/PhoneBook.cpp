@@ -1,5 +1,7 @@
 #include "PhoneBook.hpp"
 #include <sstream>
+#include <string>
+#include <iostream>
 
 PhoneBook::PhoneBook(){
 }
@@ -45,12 +47,13 @@ void	PhoneBook::search() {
 			std::cout << "\nEXIT" << std::endl;
 			exit(0);
 		}
+		auto found = std::find(tmp.begin(), tmp.end(), ' ');
 		std::istringstream iss(tmp);
 		if (!(iss >> input)) {
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nInvalid ID. Please try again" << std::flush;
-		} else if (std::cin.good() && (input >= 0 && input <= 7)) {
+		} else if (std::cin.good() && (input >= 0 && input <= 7) && found == tmp.end()) {
 			isvalid = true;
 		} else {
 			std::cin.clear();

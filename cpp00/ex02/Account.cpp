@@ -24,7 +24,6 @@ Account::Account(int initial_deposit) {
 Account::~Account( void ) {
 	_nbAccounts--;
 	this->_displayTimestamp();
-	this->_displayTimestamp();
 	std::cout	<< "index:"	<< this->_accountIndex << ";"
 				<< "amount:" << this->_amount << ";"
 				<< "closed" << std::endl;
@@ -39,7 +38,7 @@ void Account::_displayTimestamp( void ) {
                 <<  "_"
                 <<  std::setw(2) << std::localtime(&result)->tm_hour
                 <<  std::setw(2) << std::localtime(&result)->tm_min
-                <<  std::setw(2) << std::localtime(&result)->tm_sec 
+                <<  std::setw(2) << std::localtime(&result)->tm_sec
                 << "] " << std::flush;
 }
 
