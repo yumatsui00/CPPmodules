@@ -1,5 +1,5 @@
-CC = g++
-CCFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
+CXX = g++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
 DEBUG = -g -fsanitizer=integer -fsanitize=address -fsanitize=leak
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
@@ -33,19 +33,19 @@ all: $(TARGET)
 debug: $(TARGET1)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CCFLAGS) -o  $@ $^
+	$(CXX) $(CXXFLAGS) -o  $@ $^
 
 $(TARGET1): $(OBJS)
 	@echo $(BRIGHT_YELLOW)
-	$(CC) $(CCFLAGS) -o  $@ $^
+	$(CXX) $(CXXFLAGS) -o  $@ $^
 	@echo
 	@echo Make debug DONE
 
 %.o: %.c
-	$(CC) $(CCFLAGS) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
-	@rm -f *.o
+	@rm -f *.o *.d
 	@echo $(BRIGHT_MAGENTA)
 	@echo ╭━╮╭╮╱╭━╮╭━━╮╭━┳╮╭━┳╮╭━━╮╭━┳╮╭━━╮
 	@echo ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
@@ -53,7 +53,7 @@ clean:
 	@echo ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
 
 fclean:
-	@rm -f *.o
+	@rm -f *.o *.d
 	@rm -f $(TARGET) $(TARGET1)
 	@echo $(RED)╭━━━╮$(BRIGHT_MAGENTA)
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA)
@@ -66,7 +66,7 @@ test:
 	@make clean
 
 re:
-	@rm -f *.o
+	@rm -f *.o *.d
 	@rm -f $(TARGET) $(TARGET1)
 	@echo $(RED)╭━━━╮$(BRIGHT_MAGENTA)
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA)

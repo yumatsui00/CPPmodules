@@ -1,51 +1,31 @@
-CC = g++
-CCFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
-DEBUG = -g -fsanitizer=integer -fsanitize=address -fsanitize=leak
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
+DEBUG = -g -fsanitize=address
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
-TARGET = ex02
+TARGET = ex03
 TARGET1 = debug
 
 all: $(TARGET)
 	@echo $(BRIGHT_RED)
-	@echo "────────█████─────────────█████"
-	@echo "────████████████───────████████████"
-	@echo "──████▓▓▓▓▓▓▓▓▓▓██───███▓▓▓▓▓▓▓▓▓████"
-	@echo "─███▓▓▓▓▓▓▓▓▓▓▓▓▓██─██▓▓▓▓▓▓▓▓▓▓▓▓▓███"
-	@echo "███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███"
-	@echo "██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██"
-	@echo "██▓▓▓▓▓▓▓▓▓──────────────────▓▓▓▓▓▓▓▓██"
-	@echo "██▓▓▓▓▓▓▓───████──████──████───▓▓▓▓▓▓██"
-	@echo "██▓▓▓▓▓▓▓───██────█──█──█──█───▓▓▓▓▓▓██"
-	@echo "███▓▓▓▓▓▓───██────████──████───▓▓▓▓▓▓██"
-	@echo "███▓▓▓▓▓▓───██────█─────█──────▓▓▓▓▓▓██"
-	@echo "─███▓▓▓▓▓───████──█─────█──────▓▓▓▓███"
-	@echo "───███▓▓▓▓▓──────────────────▓▓▓▓▓▓███"
-	@echo "────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████"
-	@echo "─────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████"
-	@echo "───────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████"
-	@echo "──────────████▓▓▓▓▓▓▓▓▓▓▓▓████"
-	@echo "─────────────███▓▓▓▓▓▓▓████"
-	@echo "───────────────███▓▓▓███"
-	@echo "─────────────────██▓██"
-	@echo "──────────────────███"
+	@make cpp
 
 debug: $(TARGET1)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CCFLAGS) -o  $@ $^
+	$(CXX) $(CXXFLAGS) -o  $@ $^
 
 $(TARGET1): $(OBJS)
 	@echo $(BRIGHT_YELLOW)
-	$(CC) $(CCFLAGS) -o  $@ $^
+	$(CXX) $(CXXFLAGS) $(DEBUG) -o  $@ $^
 	@echo
-	@echo Make debug DONE
+	@echo FSANITIZE=ADDRESS DONE
 
-%.o: %.c
-	$(CC) $(CCFLAGS) -o $@ -c $<
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
-	@rm -f *.o
+	@rm -f *.o *.d
 	@echo $(BRIGHT_MAGENTA)
 	@echo ╭━╮╭╮╱╭━╮╭━━╮╭━┳╮╭━┳╮╭━━╮╭━┳╮╭━━╮
 	@echo ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
@@ -53,7 +33,7 @@ clean:
 	@echo ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
 
 fclean:
-	@rm -f *.o
+	@rm -f *.o *.d
 	@rm -f $(TARGET) $(TARGET1)
 	@echo $(RED)╭━━━╮$(BRIGHT_MAGENTA)
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA)
@@ -61,12 +41,13 @@ fclean:
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA) ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
 	@echo $(RED)┃┃ $(BRIGHT_MAGENTA) ╱╱┃╰╮┃╰╮┃┻╮┃┣┫┃┃┃┃┃┃┃┃┃╭┃┃╮┃┃┃┃┃╰╮┃╭╮╭╮╭╮
 	@echo $(RED)╰╯ $(BRIGHT_MAGENTA)╱╱ ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
-test:
+
+maclean:
 	@make all
 	@make clean
 
 re:
-	@rm -f *.o
+	@rm -f *.o *.d
 	@rm -f $(TARGET) $(TARGET1)
 	@echo $(RED)╭━━━╮$(BRIGHT_MAGENTA)
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA)

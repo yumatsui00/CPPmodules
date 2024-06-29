@@ -28,7 +28,6 @@ void	Harl::invalid( void ) {
 
 void	Harl::complain( std::string level )
 {
-	t_func	funcs[] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 	std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR", ""};
 	int	i = 0;
 	while (i < 4 && levels[i].compare(level))

@@ -1,15 +1,15 @@
 #ifndef WRONGCAT_HPP
 # define WRONGCAT_HPP
 
-# include <iostream>
+# include "WrongAnimal.hpp"
 
-class WrongCat {
-private:
-
+class WrongCat : public WrongAnimal {
 public:
-	WrongCat( void );
-	~WrongCat( void );
+	WrongCat();
+	WrongCat(const WrongCat &dgobj);
+	~WrongCat();
+	WrongCat	&operator=(const WrongCat &wcobj);
+	void		makeSound(void) const;
 };
-
 
 #endif
