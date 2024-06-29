@@ -1,27 +1,13 @@
-#include "Fixed.hpp"
-#include <iostream>
-#include <cmath>
+#include "ScavTrap.hpp"
 
-#include <iostream>
-int main( void ) {
-	Fixed a;
-	Fixed const b( 10 );
-	Fixed const c( 42.42f );
-	Fixed const d( b );
+int main( void )
+{
+    ScavTrap scav( "Scav" );
 
-	a = Fixed( 1234.4321f );
+    scav.attack( "the VILLAN" );
+    scav.takeDamage( 50 );
+    scav.beRepaired( 10 );
+    scav.guardGate();
 
-	std::cout << "a is " << a << std::endl;
-	std::cout << "b is " << b << std::endl;
-	std::cout << "c is " << c << std::endl;
-	std::cout << "d is " << d << std::endl;
-
-	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
-
-	return 0;
+    return 0;
 }
-
-//float 型　（単精度浮動小数点数型）　のビット表現 32bit
