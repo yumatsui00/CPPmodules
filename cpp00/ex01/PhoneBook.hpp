@@ -11,7 +11,7 @@ private:
 public:
 	PhoneBook();
 	~PhoneBook();
-	void	usage(int i) const;
+	void	usage() const;
 	void	add();
 	void	search();
 };

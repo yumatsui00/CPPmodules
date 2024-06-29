@@ -1,14 +1,15 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 
 int main(int argc, char *argv[]) {
 	if (argc > 1) {
-		std::vector<std::string> args(argv + 1, argv + argc);
-		for (size_t i = 0; i < args.size(); ++i) {
-			std::transform(args[i].begin(), args[i].end(), args[i].begin(), ::toupper);
-			std::cout << args[i];
+		for (size_t i = 1; i < (size_t)argc; ++i) {
+			std::string	str = std::string(argv[i]);
+			for (std::string::iterator t = str.begin(); t != str.end(); t++) {
+				if (islower(*t))
+					*t = std::toupper(*t);
+			}
+			std::cout << str;
 		}
 		std::cout << std::endl;
 	}

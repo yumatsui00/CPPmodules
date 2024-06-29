@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <cstdlib>
 
 PhoneBook::PhoneBook(){
 }
@@ -9,17 +10,14 @@ PhoneBook::PhoneBook(){
 PhoneBook::~PhoneBook(){
 }
 
-void	PhoneBook::usage(int i) const {
+void	PhoneBook::usage() const {
 	std::cout << std::endl;
-	if (i == 0)
-		std::cout << "        ☎️  Your Awesome PhoneBook 😀" << std::endl;
-	else {
-		std::cout << " ===================USAGE====================" << std::endl;
-		std::cout << " ||ADD    : To add a contact               ||" << std::endl;
-		std::cout << " ||SEARCH : To search for a contact        ||" << std::endl;
-		std::cout << " ||EXIT   : to close your awesome phonebook||" << std::endl;
-		std::cout << " ============================================\n" << std::endl;
-	}
+	std::cout << " ===================USAGE====================" << std::endl;
+	std::cout << " ||ADD    : To add a contact               ||" << std::endl;
+	std::cout << " ||SEARCH : To search for a contact        ||" << std::endl;
+	std::cout << " ||EXIT   : to close your awesome phonebook||" << std::endl;
+	std::cout << " ============================================" << std::endl;
+	std::cout << std::endl;
 }
 
 void	PhoneBook::add() {
@@ -36,7 +34,7 @@ void	PhoneBook::search() {
 	int		input = -1;
 
 	std::cout << "====================CONTACT====================" << std::endl;
-	std::cout << "||ID        |First Name| Last Name| NickName ||" << std::endl;
+	std::cout << "||  Index   |First Name| Last Name| NickName ||" << std::endl;
 	std::cout << "===============================================" << std::endl;
 	for (int i = 0; i < 8; i++)
 		this->_contacts[i].display(i);
@@ -45,19 +43,14 @@ void	PhoneBook::search() {
 		std::getline(std::cin, tmp);
 		if (std::cin.eof()) {
 			std::cout << "\nEXIT" << std::endl;
-			exit(0);
+			std::exit(0);
 		}
-		auto found = std::find(tmp.begin(), tmp.end(), ' ');
 		std::istringstream iss(tmp);
 		if (!(iss >> input)) {
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nInvalid ID. Please try again" << std::flush;
-		} else if (std::cin.good() && (input >= 0 && input <= 7) && found == tmp.end()) {
+		} else if (std::cin.good() && (input >= 0 && input <= 7) && tmp.size() == 1) {
 			isvalid = true;
 		} else {
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nInvalid ID. Please try again" << std::flush;
 		}
 		std::cout << std::endl;

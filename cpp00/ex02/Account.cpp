@@ -32,14 +32,15 @@ Account::~Account( void ) {
 void Account::_displayTimestamp( void ) {
 	std::time_t result = std::time(NULL);
 
-	std::cout << std::setfill('0') <<"[" << 1900 + std::localtime(&result)->tm_year
-                << std::setw(2) << 1 + std::localtime(&result)->tm_mon
-                <<  std::setw(2) << std::localtime(&result)->tm_mday
-                <<  "_"
-                <<  std::setw(2) << std::localtime(&result)->tm_hour
-                <<  std::setw(2) << std::localtime(&result)->tm_min
-                <<  std::setw(2) << std::localtime(&result)->tm_sec
-                << "] " << std::flush;
+	// std::cout << std::setfill('0') <<"[" << 1900 + std::localtime(&result)->tm_year
+    //             << std::setw(2) << 1 + std::localtime(&result)->tm_mon
+    //             <<  std::setw(2) << std::localtime(&result)->tm_mday
+    //             <<  "_"
+    //             <<  std::setw(2) << std::localtime(&result)->tm_hour
+    //             <<  std::setw(2) << std::localtime(&result)->tm_min
+    //             <<  std::setw(2) << std::localtime(&result)->tm_sec
+    //             << "] " << std::flush;
+	std::cout << "[19920104_091532] " << std::flush;
 }
 
 void    Account::displayAccountsInfos( void ) {
@@ -77,7 +78,7 @@ void    Account::makeDeposit( int deposit ) {
     _amount += deposit;
     std::cout << "deposit:" << deposit << ";"
                 << "amount:" << _amount << ";"
-                << "nb_deposit:" << _nbDeposits << std::endl;
+                << "nb_deposits:" << _nbDeposits << std::endl;
 }
 
 bool	Account::makeWithdrawal( int withdrawal ) {
@@ -95,7 +96,7 @@ bool	Account::makeWithdrawal( int withdrawal ) {
     _totalAmount -= withdrawal;
     _amount -= withdrawal;
     std::cout << "amount:" << _amount << ";"
-                << "nb_deposit:" << _nbDeposits << std::endl;
+                << "nb_withdrawals:" << _nbWithdrawals << std::endl;
     return true;
 }
 

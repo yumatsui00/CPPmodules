@@ -1,4 +1,6 @@
 #include "PhoneBook.hpp"
+#include <cstdlib>
+#include <cctype>
 
 Contact::Contact(){
 }
@@ -15,10 +17,18 @@ std::string	Contact::_getInput(std::string str) const {
 		std::getline(std::cin, input);
 		if (std::cin.eof()) {
 			std::cout << "\nEXIT" << std::endl;
-			exit(0);
+			std::exit(0);
 		}
-		if (std::cin.good() && !input.empty())
+		else if (std::cin.good() && !input.empty()) {
 			isvalid = true;
+			for (size_t i = 0; i < input.size(); i++) {
+				if (!std::isprint(input[i])) {
+					isvalid = false;
+					std::cout << "Invalid input. Please try again!" << std::endl;
+					break;
+				}
+			}
+		}
 		else {
 			std::cin.clear();
 			std::cout << "Invalid input. Please try again!" << std::endl;
@@ -54,8 +64,6 @@ void	Contact::printer(std::string str) const {
 }
 
 void	Contact::display(int i) const {
-	int	len;
-
 	std::cout << "||         " << i << "|";
 	printer(this->_firstName);
 	printer(this->_lastName);
@@ -70,5 +78,5 @@ void	Contact::printallinfo(int i) {
 	std::cout << " NickName: " << _nickName << std::endl;
 	std::cout << " Phone Number: " << _phoneNumber << std::endl;
 	std::cout << " Darkest Secret: " << _darkestSecret << std::endl;
-	std::cout << " ID: " << i << "\n" << std::endl;
+	std::cout << " Index: " << i << "\n" << std::endl;
 }
