@@ -20,6 +20,14 @@ int main(int argc, char **argv) {
 	//ifstream クラス　inputFile(filename) : filenameで指定されたパスのファイルをひらく(open 関数)
 	//is_open() ファイルが開いてたらtrue 開いてなかったらfalse
 
+	//!outfile open
+	std::ofstream outputFile("outfile");
+	if (!outputFile.is_open()) {
+		std::cerr << "Error: unable to open output file" << std::endl;
+		inputFile.close();
+		return 0;
+	}
+
 	//!ファイル読み込み
 	std::string infile;
 	std::string line;
@@ -35,17 +43,9 @@ int main(int argc, char **argv) {
 		outfile += infile.substr(start, end - start) + str2;
 		start = end + str1.length();
 	}
-	outfile += infile .substr(start);
+	outfile += infile.substr(start);
 	//find() : 文字列のstart番目からstr1があるかどうかを検索し、あった場合はその位置の先頭を返す。なかったたnpos
 	//substr(): stringっのstart から　endまでを抽出してくる。一つだけならそこから最後まで。
-
-	//!outfile open
-	std::ofstream outputFile("outfile");
-	if (!outputFile.is_open()) {
-		std::cerr << "Error: unable to open output file" << std::endl;
-		inputFile.close();
-		return 0;
-	}
 
 	//!アウトプットファイルに入力
 	outputFile << outfile;

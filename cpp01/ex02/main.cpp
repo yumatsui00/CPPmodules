@@ -15,3 +15,5 @@ int	main() {
 	std::cout << "strREF = " << stringREF << std::endl;
 	return 0;
 }
+
+//refは基本的にNULLが入らない
