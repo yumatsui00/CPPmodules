@@ -32,15 +32,14 @@ Account::~Account( void ) {
 void Account::_displayTimestamp( void ) {
 	std::time_t result = std::time(NULL);
 
-	// std::cout << std::setfill('0') <<"[" << 1900 + std::localtime(&result)->tm_year
-    //             << std::setw(2) << 1 + std::localtime(&result)->tm_mon
-    //             <<  std::setw(2) << std::localtime(&result)->tm_mday
-    //             <<  "_"
-    //             <<  std::setw(2) << std::localtime(&result)->tm_hour
-    //             <<  std::setw(2) << std::localtime(&result)->tm_min
-    //             <<  std::setw(2) << std::localtime(&result)->tm_sec
-    //             << "] " << std::flush;
-	std::cout << "[19920104_091532] " << std::flush;
+	std::cout << std::setfill('0') <<"[" << 1900 + std::localtime(&result)->tm_year
+                << std::setw(2) << 1 + std::localtime(&result)->tm_mon
+                <<  std::setw(2) << std::localtime(&result)->tm_mday
+                <<  "_"
+                <<  std::setw(2) << std::localtime(&result)->tm_hour
+                <<  std::setw(2) << std::localtime(&result)->tm_min
+                <<  std::setw(2) << std::localtime(&result)->tm_sec
+                << "] " << std::flush;
 }
 
 void    Account::displayAccountsInfos( void ) {
