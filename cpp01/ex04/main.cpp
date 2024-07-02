@@ -4,7 +4,10 @@
 int main(int argc, char **argv) {
 	if (argc != 4) {
 		std::cout << "Invalid args: format : ./ex04 filename str1 str2" << std::endl;
-		return 0;
+		return 1;
+	} else if (*argv[2] == '\0' || *argv[3] == '\0') {
+		std::cout << "Invalid args: str1 and str2 must not be \\0" << std::endl;
+		return 1;
 	}
 
 	std::string	filename = argv[1];
@@ -15,7 +18,7 @@ int main(int argc, char **argv) {
 	std::ifstream inputFile(filename);
 	if (!inputFile.is_open()) {
 		std::cerr << "Error: unable to open input file: " << filename << std::endl;
-		return 0;
+		return 1;
 	}
 	//ifstream クラス　inputFile(filename) : filenameで指定されたパスのファイルをひらく(open 関数)
 	//is_open() ファイルが開いてたらtrue 開いてなかったらfalse
@@ -25,7 +28,7 @@ int main(int argc, char **argv) {
 	if (!outputFile.is_open()) {
 		std::cerr << "Error: unable to open output file" << std::endl;
 		inputFile.close();
-		return 0;
+		return 1;
 	}
 
 	//!ファイル読み込み
@@ -52,4 +55,5 @@ int main(int argc, char **argv) {
 
 	inputFile.close();
 	outputFile.close();
+	return 0;
 }
