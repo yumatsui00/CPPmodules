@@ -3,7 +3,7 @@
 int main( void )
 {
 	std::cout << "---constructor---" << std::endl;
-    DiamondTrap d( "Diamond" );
+	DiamondTrap d("Diamond");
 
 	std::cout << "\n---take action---" << std::endl;
     d.attack( "the VILLAN" );
