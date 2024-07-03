@@ -9,7 +9,7 @@
 
 class	ScavTrap : public ClapTrap {
 protected:
-	ScavTrap();
+	ScavTrap() {};
 
 public:
 	ScavTrap( std::string name );

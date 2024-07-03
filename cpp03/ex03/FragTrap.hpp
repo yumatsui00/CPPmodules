@@ -7,8 +7,8 @@
 # define FRAGEP 100
 # define FRAGAD 30
 
-class FragTrap : public ClapTrap {
-private:
+class FragTrap : virtual public ClapTrap {
+protected :
 	FragTrap();
 public :
 	FragTrap( std::string name );

@@ -7,9 +7,9 @@
 # define SCAVEP 50
 # define SCAVAD 20
 
-class	ScavTrap : public ClapTrap {
+class	ScavTrap : virtual public ClapTrap {
 protected:
-	ScavTrap();
+	ScavTrap() {};
 
 public:
 	ScavTrap( std::string name );

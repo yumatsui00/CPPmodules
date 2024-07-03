@@ -8,7 +8,7 @@
 # define FRAGAD 30
 
 class FragTrap : public ClapTrap {
-private:
+protected :
 	FragTrap();
 public :
 	FragTrap( std::string name );

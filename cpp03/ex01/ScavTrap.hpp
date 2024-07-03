@@ -3,9 +3,13 @@
 
 #include "ClapTrap.hpp"
 
+# define SCAVHP 100
+# define SCAVEP 50
+# define SCAVAD 20
+
 class	ScavTrap : public ClapTrap {
 protected:
-	ScavTrap();
+	ScavTrap() {};
 
 public:
 	ScavTrap( std::string name );
