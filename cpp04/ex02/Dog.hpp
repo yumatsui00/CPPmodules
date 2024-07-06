@@ -2,8 +2,11 @@
 # define DOG_HPP
 
 # include <iostream>
-# include "Animal.hpp"
-class Dog : public Animal {
+# include "AAnimal.hpp"
+
+class Dog : public AAnimal {
+private:
+	Brain* brain;
 public:
 	Dog( void );
 	Dog( const Dog &rhs );

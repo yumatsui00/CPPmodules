@@ -5,15 +5,16 @@
 
 int main() {
 	std::cout << "---Animals Constructor---" << std::endl;
-	const Animal* dog = new Dog();
-	const Animal* cat = new Cat();
+	// const AAnimal* animal = new AAnimal();
+	const AAnimal* dog = new Dog();
+	const AAnimal* cat = new Cat();
 
 	std::cout << "\n---Animals destructor---" << std::endl;
 	delete dog;
 	delete cat;
 
 	std::cout << "\n\n=====OPEN ZOO=====" << std::endl;
-	const Animal* zoo[10];
+	const AAnimal* zoo[10];
 	for (int i = 0; i < 5; i ++) {
 		zoo[i] = new Dog();
 	}

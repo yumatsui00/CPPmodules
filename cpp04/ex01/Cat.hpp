@@ -5,6 +5,8 @@
 # include "Animal.hpp"
 
 class Cat : public Animal {
+private:
+	Brain* brain;
 public:
 	Cat( void );
 	Cat( const Cat &rhs );

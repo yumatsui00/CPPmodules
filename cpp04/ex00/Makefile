@@ -1,6 +1,6 @@
-CXX = g++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
-DEBUG = -g -fsanitizer=integer -fsanitize=address -fsanitize=leak
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
+DEBUG = -g -fsanitize=address
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
 TARGET = ex00
@@ -8,27 +8,7 @@ TARGET1 = debug
 
 all: $(TARGET)
 	@echo $(BRIGHT_RED)
-	@echo "────────█████─────────────█████"
-	@echo "────████████████───────████████████"
-	@echo "──████▓▓▓▓▓▓▓▓▓▓██───███▓▓▓▓▓▓▓▓▓████"
-	@echo "─███▓▓▓▓▓▓▓▓▓▓▓▓▓██─██▓▓▓▓▓▓▓▓▓▓▓▓▓███"
-	@echo "███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███"
-	@echo "██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██"
-	@echo "██▓▓▓▓▓▓▓▓▓──────────────────▓▓▓▓▓▓▓▓██"
-	@echo "██▓▓▓▓▓▓▓───████──████──████───▓▓▓▓▓▓██"
-	@echo "██▓▓▓▓▓▓▓───██────█──█──█──█───▓▓▓▓▓▓██"
-	@echo "███▓▓▓▓▓▓───██────████──████───▓▓▓▓▓▓██"
-	@echo "███▓▓▓▓▓▓───██────█─────█──────▓▓▓▓▓▓██"
-	@echo "─███▓▓▓▓▓───████──█─────█──────▓▓▓▓███"
-	@echo "───███▓▓▓▓▓──────────────────▓▓▓▓▓▓███"
-	@echo "────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████"
-	@echo "─────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████"
-	@echo "───────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████"
-	@echo "──────────████▓▓▓▓▓▓▓▓▓▓▓▓████"
-	@echo "─────────────███▓▓▓▓▓▓▓████"
-	@echo "───────────────███▓▓▓███"
-	@echo "─────────────────██▓██"
-	@echo "──────────────────███"
+	@make cpp
 
 debug: $(TARGET1)
 
@@ -37,11 +17,11 @@ $(TARGET): $(OBJS)
 
 $(TARGET1): $(OBJS)
 	@echo $(BRIGHT_YELLOW)
-	$(CXX) $(CXXFLAGS) -o  $@ $^
+	$(CXX) $(CXXFLAGS) $(DEBUG) -o  $@ $^
 	@echo
-	@echo Make debug DONE
+	@echo FSANITIZE=ADDRESS DONE
 
-%.o: %.c
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
@@ -61,7 +41,8 @@ fclean:
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA) ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
 	@echo $(RED)┃┃ $(BRIGHT_MAGENTA) ╱╱┃╰╮┃╰╮┃┻╮┃┣┫┃┃┃┃┃┃┃┃┃╭┃┃╮┃┃┃┃┃╰╮┃╭╮╭╮╭╮
 	@echo $(RED)╰╯ $(BRIGHT_MAGENTA)╱╱ ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
-test:
+
+maclean:
 	@make all
 	@make clean
 
