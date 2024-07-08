@@ -1,0 +1,113 @@
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
+DEBUG = -g -fsanitize=address
+SRCS = $(wildcard *.cpp)
+OBJS = $(SRCS:.cpp=.o)
+TARGET = ex00
+TARGET1 = debug
+
+all: $(TARGET)
+	@echo $(BRIGHT_RED)
+	@make cpp
+
+debug: $(TARGET1)
+
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o  $@ $^
+
+$(TARGET1): $(OBJS)
+	@echo $(BRIGHT_YELLOW)
+	$(CXX) $(CXXFLAGS) $(DEBUG) -o  $@ $^
+	@echo
+	@echo FSANITIZE=ADDRESS DONE
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+clean:
+	@rm -f *.o *.d
+	@echo $(BRIGHT_MAGENTA)
+	@echo ╭━╮╭╮╱╭━╮╭━━╮╭━┳╮╭━┳╮╭━━╮╭━┳╮╭━━╮
+	@echo ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
+	@echo ┃╰╮┃╰╮┃┻╮┃┣┫┃┃┃┃┃┃┃┃┃╭┃┃╮┃┃┃┃┃╰╮┃╭╮╭╮╭╮
+	@echo ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
+
+fclean:
+	@rm -f *.o *.d
+	@rm -f $(TARGET) $(TARGET1)
+	@echo $(RED)╭━━━╮$(BRIGHT_MAGENTA)
+	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA)
+	@echo $(RED)┃╰━━╮$(BRIGHT_MAGENTA) ╭━╮╭╮╱╭━╮╭━━╮╭━┳╮╭━┳╮╭━━╮╭━┳╮╭━━╮
+	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA) ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
+	@echo $(RED)┃┃ $(BRIGHT_MAGENTA) ╱╱┃╰╮┃╰╮┃┻╮┃┣┫┃┃┃┃┃┃┃┃┃╭┃┃╮┃┃┃┃┃╰╮┃╭╮╭╮╭╮
+	@echo $(RED)╰╯ $(BRIGHT_MAGENTA)╱╱ ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
+
+maclean:
+	@make all
+	@make clean
+
+re:
+	@rm -f *.o *.d
+	@rm -f $(TARGET) $(TARGET1)
+	@echo $(RED)╭━━━╮$(BRIGHT_MAGENTA)
+	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA)
+	@echo $(RED)┃╰━━╮$(BRIGHT_MAGENTA) ╭━╮╭╮╱╭━╮╭━━╮╭━┳╮╭━┳╮╭━━╮╭━┳╮╭━━╮
+	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA) ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
+	@echo $(RED)┃┃ $(BRIGHT_MAGENTA) ╱╱┃╰╮┃╰╮┃┻╮┃┣┫┃┃┃┃┃┃┃┃┃╭┃┃╮┃┃┃┃┃╰╮┃╭╮╭╮╭╮
+	@echo $(RED)╰╯ $(BRIGHT_MAGENTA)╱╱ ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
+	@make all
+
+.PHONY: all clean fclean re
+
+# color
+RESET = "\033[0m"
+# 標準色
+BLACK = "\033[30m"
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+MAGENTA = "\033[35m"
+CYAN = "\033[36m"
+WHITE = "\033[37m"
+# 明るい色
+BRIGHT_BLACK = "\033[90m"
+BRIGHT_RED = "\033[91m"
+BRIGHT_GREEN = "\033[92m"
+BRIGHT_YELLOW = "\033[93m"
+BRIGHT_BLUE = "\033[94m"
+BRIGHT_MAGENTA = "\033[95m"
+BRIGHT_CYAN = "\033[96m"
+BRIGHT_WHITE = "\033[97m"
+# 背景色
+BG_RED = "\033[41m"
+BG_GREEN = "\033[42m"
+BG_BLUE = "\033[44m"
+# テキスト属性
+BOLD = "\033[1m"
+UNDERLINE = "\033[4m"
+REVERSE = "\033[7m"
+
+cpp:
+	@echo $(BRIGHT_RED)
+	@echo "────────█████─────────────█████"
+	@echo "────████████████───────████████████"
+	@echo "──████▓▓▓▓▓▓▓▓▓▓██───███▓▓▓▓▓▓▓▓▓████"
+	@echo "─███▓▓▓▓▓▓▓▓▓▓▓▓▓██─██▓▓▓▓▓▓▓▓▓▓▓▓▓███"
+	@echo "███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███"
+	@echo "██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██"
+	@echo "██▓▓▓▓▓▓▓▓▓──────────────────▓▓▓▓▓▓▓▓██"
+	@echo "██▓▓▓▓▓▓▓───████──████──████───▓▓▓▓▓▓██"
+	@echo "██▓▓▓▓▓▓▓───██────█──█──█──█───▓▓▓▓▓▓██"
+	@echo "███▓▓▓▓▓▓───██────████──████───▓▓▓▓▓▓██"
+	@echo "███▓▓▓▓▓▓───██────█─────█──────▓▓▓▓▓▓██"
+	@echo "─███▓▓▓▓▓───████──█─────█──────▓▓▓▓███"
+	@echo "───███▓▓▓▓▓──────────────────▓▓▓▓▓▓███"
+	@echo "────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████"
+	@echo "─────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████"
+	@echo "───────████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████"
+	@echo "──────────████▓▓▓▓▓▓▓▓▓▓▓▓████"
+	@echo "─────────────███▓▓▓▓▓▓▓████"
+	@echo "───────────────███▓▓▓███"
+	@echo "─────────────────██▓██"
+	@echo "──────────────────███"
