@@ -8,4 +8,4 @@
 
 ### cpp03 Simple inheritance - [cpp03](https://github.com/yumatsui00/CPPmodules/tree/master/cpp03)
 
-### cpp04 Inheritance and virtual - [cpp04](https://github.com/yumatsui00/CPPmodules/tree/master/cpp04_
+### cpp04 Inheritance and virtual - [cpp04](https://github.com/yumatsui00/CPPmodules/tree/master/cpp04)
