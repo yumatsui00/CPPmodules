@@ -1,29 +1,33 @@
-#ifndef BUREAUCRAT_HPP
-# define BUREAUCRAT_HPP
+#ifndef FORM_HPP
+# define FORM_HPP
 
 # include <string>
 # include <iostream>
+# include "Bureaucrat.hpp"
 
-# define BEST 1
-# define WORST 150
+class Bureaucrat;
 
-class Bureaucrat {
+class Form {
 private :
-	Bureaucrat( void );
+	Form( void );
 	const std::string	_name;
-	size_t				_grade;
+	bool				_isSigned;
+	const size_t		_gradeToSign;
+	const size_t		_gradeToExecute;
+
 public :
 //!------------------------Constructors & Operator----------------------------
-	Bureaucrat( const Bureaucrat &src ) ;
-	Bureaucrat	&operator=( const Bureaucrat &rhs ) ;
-	Bureaucrat( const std::string& Name, size_t grade );
-	~Bureaucrat( void );
+	Form( const Form &src ) ;
+	Form	&operator=( const Form &rhs ) ;
+	Form( const std::string& name, size_t gradeToSign );
+	~Form( void );
 
 //*---------------------------Member Function---------------------------------
 	const std::string	getName( void ) const;
-	size_t				getGrade( void ) const;
-	void				upGrade( void );
-	void				downGrade( void );
+	bool				getIsSigned( void ) const;
+	size_t				getGradeToSign( void ) const;
+	size_t				getGradeToExecute( void ) const;
+	void				beSigned( const Bureaucrat& src );
 
 //?------------------------------   Class   -----------------------------------
 	class GradeTooHighException : public std::exception
@@ -39,7 +43,7 @@ public :
 } ;
 
 //-------------------------------- Others -----------------------------------
-std::ostream&	operator<<( std::ostream& o, const Bureaucrat& rhs );
+std::ostream&	operator<<( std::ostream& o, const Form& rhs );
 
 
 // try and catch and throw

@@ -1,31 +1,55 @@
-#include "ClapTrap.hpp"
+#include "Bureaucrat.hpp"
 
 int main () {
-	std::cout << "---constructor---" << std::endl;
-	ClapTrap	clap1("CLAP1");
-	ClapTrap	clap2("CLAP2");
-	ClapTrap	clap3("CLAP3");
-
-	std::cout << "\n---case1: when clap doesn't die---" << std::endl;
-	clap1.attack("The VILLAN");
-	clap1.takeDamage(1);
-	clap1.beRepaired(1);
-
-	std::cout << "\n---case2: when clap dies---" << std::endl;
-	clap2.takeDamage(10);
-	clap2.attack("The VILLAN");
-	clap2.takeDamage(1);
-	clap2.beRepaired(1);
-
-	std::cout << "\n---case3: when clap runs out of thier EP---" << std::endl;
-	for (int i = 0; i < 5; i++) {
-		clap3.attack("The VILLAN");
-		clap3.beRepaired(1);
+	std::cout << "____________case 1_____________" << std::endl;
+	try {
+		Bureaucrat	a("No1", 1);
+		std::cout << "constructer called" << std::endl;
+		std::cout << a << std::endl;
+		a.upGrade();
+		std::cout << "Grade = 0?!?!" << std::endl;
+	} catch (std::exception &exception) {
+		std::cout << exception.what();
 	}
-	std::cout << "---10 energy point are used---" << std::endl;
-	clap3.attack("The VILLAN");
-	clap3.beRepaired(1);
-	clap3.takeDamage(1);
 
-	std::cout << "\n---destructor---" << std::endl;
+	std::cout << "\n\n____________case 2_____________" << std::endl;
+	try {
+		Bureaucrat	b("No2", 0);
+		std::cout << "Grade 0 construct done!?!?!?!" << std::endl;
+	} catch (std::exception &exception) {
+		std::cout << exception.what();
+	}
+
+	std::cout << "\n\n____________case 3_____________" << std::endl;
+	try {
+		Bureaucrat	c("No3", 150);
+		std::cout << "constructer called" << std::endl;
+		std::cout << c << std::endl;
+		c.downGrade();
+		std::cout << "Grade = 151?!?!" << std::endl;
+	} catch (std::exception &exception) {
+		std::cout << exception.what() << std::endl;
+	}
+
+	std::cout << "\n\n____________case 4_____________" << std::endl;
+	try {
+		Bureaucrat	d("No4", 151);
+		std::cout << "Grade 151 construct done!?!?!?!" << std::endl;
+	} catch (std::exception &exception) {
+		std::cout << exception.what();
+	}
+
+	std::cout << "\n\n____________case 5_____________" << std::endl;
+	try {
+		Bureaucrat	e("No5", 100);
+		std::cout << e << std::endl;
+		e.upGrade();
+		std::cout << e << std::endl;
+		e.downGrade();
+		std::cout << e << std:: endl;
+		std::cout << "arrived here" << std::endl;
+	} catch (std::exception &exception) {
+		std::cout << exception.what();
+		std::cout << "Do not come here!" << std::endl;
+	}
 }

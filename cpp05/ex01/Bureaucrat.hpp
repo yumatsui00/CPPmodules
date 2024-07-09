@@ -3,9 +3,12 @@
 
 # include <string>
 # include <iostream>
+# include "Form.hpp"
 
 # define BEST 1
 # define WORST 150
+
+class Form;
 
 class Bureaucrat {
 private :
@@ -24,6 +27,7 @@ public :
 	size_t				getGrade( void ) const;
 	void				upGrade( void );
 	void				downGrade( void );
+	void				signForm( Form& src );
 
 //?------------------------------   Class   -----------------------------------
 	class GradeTooHighException : public std::exception

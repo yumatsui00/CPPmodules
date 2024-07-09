@@ -27,22 +27,38 @@ const std::string	Bureaucrat::getName( void ) const {
 	return _name;
 };
 
-size_t				Bureaucrat::getGrade( void ) const {
+size_t	Bureaucrat::getGrade( void ) const {
 	return _grade;
 };
 
-void				Bureaucrat::upGrade( void ) {
+void	Bureaucrat::upGrade( void ) {
 	if (_grade -1 < 1)
 		throw Bureaucrat::GradeTooHighException();
 	_grade --;
 };
 
-void				Bureaucrat::downGrade( void ) {
+void	Bureaucrat::downGrade( void ) {
 	if (_grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException();
 	_grade ++;
 };
 
+void	Bureaucrat::signForm( AForm& src ) {
+	try {
+		src.beSigned( *this );
+		std::cout << *this << " signed " << src.getName() << std::endl;
+	} catch (AForm::GradeTooLowException &exception) {
+		std::cout << _name << " couldn't sign " << src.getName() << " because " << exception.what() << std::endl;
+	}
+};
+
+void	Bureaucrat::executeForm( AForm const& src ) {
+	try {
+		src.execute( *this );
+	} catch (std::exception& exception) {
+		std::cout << _name << " couldn't execute " << src.getName() << " because " << exception.what() << std::endl;
+	}
+}
 
 //-------------------------------- Others -----------------------------------
 std::ostream& operator<<( std::ostream& o, const Bureaucrat& rhs) {
