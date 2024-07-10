@@ -15,7 +15,7 @@ int main () {
 	a.upGrade();
 	a.executeForm(A);
 	std::cout << "___case2___" << std::endl;
-	RobotmyRequestForm B("target2");
+	RobotomyRequestForm B("target2");
 	Bureaucrat b("b", 46);
 	b.executeForm(B);
 	b.signForm(B);
