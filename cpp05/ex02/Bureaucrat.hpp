@@ -22,7 +22,7 @@ public :
 	Bureaucrat( const std::string& Name, size_t grade );
 	~Bureaucrat( void );
 
-//*---------------------------Member Function---------------------------------
+//*---------------------------Member Function---------------------------------=
 	const std::string	getName( void ) const;
 	size_t				getGrade( void ) const;
 	void				upGrade( void );

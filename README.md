@@ -9,3 +9,5 @@
 ### cpp03 Simple inheritance - [cpp03](https://github.com/yumatsui00/CPPmodules/tree/master/cpp03)
 
 ### cpp04 Inheritance and virtual - [cpp04](https://github.com/yumatsui00/CPPmodules/tree/master/cpp04)
+
+### cpp05 Try & Catch - [cpp05](https://github.com/yumatsui00/CPPmodules/tree/master/cpp04)

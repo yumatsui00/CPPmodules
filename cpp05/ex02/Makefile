@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 DEBUG = -g -fsanitize=address
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
-TARGET = ex01
+TARGET = ex02
 TARGET1 = debug
 
 all: $(TARGET)
