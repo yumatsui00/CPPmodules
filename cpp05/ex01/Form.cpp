@@ -4,7 +4,7 @@
 Form::Form( void ) : _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {};
 
 Form::Form( const std::string& name, size_t gradeToSign ) : _name(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(150) {
-	if (gradeToSign < 0) {
+	if (gradeToSign < 1) {
 		throw Form::GradeTooHighException();
 	}
 	if (gradeToSign > 150) {

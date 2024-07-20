@@ -28,8 +28,8 @@ int main () {
 
 	std::cout << "\n\n____________case 3_____________" << std::endl;
 	try {
-		Bureaucrat	c("bureau3", 0);
-		Form C("form3", 10);
+		Bureaucrat	c("bureau3", 1);
+		Form C("form3", 0);
 		std::cout << c << std::endl;
 		std::cout << C << std::endl;
 		c.signForm(C);
@@ -40,8 +40,8 @@ int main () {
 
 	std::cout << "\n\n____________case 4_____________" << std::endl;
 	try {
-		Bureaucrat	d("bureau4", 151);
-		Form D("form4", 10);
+		Bureaucrat	d("bureau4", 150);
+		Form D("form4", 151);
 		std::cout << d << std::endl;
 		std::cout << D << std::endl;
 		d.signForm(D);

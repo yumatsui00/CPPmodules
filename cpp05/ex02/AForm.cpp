@@ -5,7 +5,7 @@ AForm::AForm( void ) : _isSigned(false), _gradeToSign(150), _gradeToExecute(150)
 
 AForm::AForm( const std::string& name, size_t gradeToSign, size_t gradeToExecute ) :\
 	_name(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
-	if (gradeToSign < 0 || gradeToExecute < 0) {
+	if (gradeToSign < 1 || gradeToExecute < 1) {
 		throw AForm::GradeTooHighException();
 	}
 	if (gradeToSign > 150 || gradeToExecute > 150) {

@@ -35,8 +35,15 @@ AForm*	Intern::makeForm( std::string name, std::string target ) {
 	for (int i(0); i < 3; i++ ) {
 		if (name == names[i]) {
 			std::cout << "Intern creats " << name << std::endl;
+			if (i == 0) {
+				delete forms[1];
+				delete forms[2];
+			} else if (i == 1) {
+				delete forms[2];
+			}
 			return forms[i];
 		}
+		delete	forms[i];
 	}
 	std::cout << "Intern couldn't creat " << name << " form" << std::endl;
 	return NULL;
