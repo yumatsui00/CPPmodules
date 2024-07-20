@@ -5,29 +5,71 @@ static int	ft_stoi( const std::string& str ) {
 	std::stringstream ss(str);
 	ss >> num;
 	return num;
-}	;
+};
 
+//普通にキャストするとinff にならない
 static float ft_stof( const std::string& str ) {
-	float num;
-	std::stringstream ss(str);
-	ss >> num;
-	return num;
-} ;
-
-static double ft_stod( const std::string& str ){
-	double num;
-	std::stringstream ss(str);
-	ss >> num;
+	bool minusflag = (str.at(0) == '-');
+	size_t i = minusflag ? 1 : 0;
+	float num = 0;
+	while(i < str.length()) {
+		if (str.at(i) == '.' || str.at(i) == 'f')
+				break;
+		if (minusflag)
+			num = num * 10 - (str.at(i) - '0');
+		else
+			num = num * 10 + (str.at(i) - '0');
+		i++;
+	}
+	if (i != str.length() && str.at(i) == '.') {
+		float	scale = 10;
+		while(++i < str.length() - 1) {
+			if (str.at(i) == 'f')
+				break ;
+			if (minusflag)
+				num -= float(str.at(i) - '0') / scale;
+			else
+				num += float(str.at(i) - '0') / scale;
+			scale *= 10;
+		}
+	}
 	return num;
 }
 
+static double ft_stod( const std::string& str ){
+	bool minusflag = (str.at(0) == '-');
+	size_t i = minusflag ? 1 : 0;
+	double num = 0;
+	while (i < str.length()) {
+		if (str.at(i) == '.' || str.at(i) == 'f')
+				break;
+		if (minusflag)
+			num = num * 10 - (str.at(i) - '0');
+		else
+			num = num * 10 + (str.at(i) - '0');
+		i++;
+	}
+	if (i != str.length() && str.at(i) == '.') {
+		double	scale = 10;
+		while(++i < str.length() - 1) {
+			if (str.at(i) == 'f')
+				break ;
+			if (minusflag)
+				num -= double(str.at(i) - '0') / scale;
+			else
+				num += double(str.at(i) - '0') / scale;
+			scale *= 10;
+		}
+	}
+	return num;
+}
 
 bool	ft_isprint(char c) {
 	return (c >= 32 && c <= 126);
 } ;
 
 bool	ft_isdigit(char c) {
-	return (c >= '0' && c<= '9');
+	return (c >= '0' && c <= '9');
 } ;
 
 bool	ft_isinff( const std::string& input ) {
@@ -42,6 +84,49 @@ bool	ft_isinf( const std::string& input ) {
 	return false;
 }
 
+static bool	checkInt( const std::string &str ) {
+	size_t i;
+	for (i = str.at(0) == '-' ? 1 : 0; i < str.length(); i++) {
+		if (str.at(i) == '.')
+			break;
+		if (str.at(i) == 'f')
+			return true;
+	}
+	while (++i < str.length()) {
+		if (str.at(i) == 'f')
+			return true;
+		if (str.at(i) == '0')
+			continue;
+		return false;
+	}
+	return true;
+}
+
+static bool	checkInt2( float num ) {
+	std::ostringstream oss;
+    oss << num;
+    std::string str = oss.str();
+	return (checkInt(str));
+}
+
+static bool	checkInt3( double num ){
+	std::ostringstream oss;
+    oss << num;
+    std::string str = oss.str();
+	return (checkInt(str));
+}
+
+static bool echeck( float num ) {
+	if (num <= 1000000 && num >= -1000000)
+		return true;
+	return false;
+}
+
+static bool sixcheck( int num ) {
+	if (num / 100000 != 0 && num / 1000000 == 0)
+		return true;
+	return false;
+}
 
 bool	isChar( const std::string& input ) {
 	if (input.length() != 1 ||\
@@ -132,7 +217,7 @@ static int	getType( const std::string& input, bool* offlag ) {
 	return ERROR;
 } ;
 
-void	outputChar(char c) {
+static void	outputChar(char c) {
 	if (ft_isprint(c))
 		std::cout << "char: '" << c << "'" << std::endl;
 	else
@@ -142,22 +227,30 @@ void	outputChar(char c) {
 	std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
 } ;
 
-void	outputInt( int num, bool overflowflag ) {
+static void	outputInt( std::string num, bool overflowflag ) {
+	int number = ft_stoi(num);
 	if (overflowflag) {
 		std::cout << "char: impossible" << std::endl;
 		std::cout << "int: impossible" << std::endl;
 	} else {
-		if (!isprint(static_cast<char>(num)))
+		if (!isprint(static_cast<char>(number)))
 			std::cout << "char: Non displayable" << std::endl;
 		else
-			std::cout << "char: '" << static_cast<char>(num) << "'" << std::endl;
+			std::cout << "char: '" << static_cast<char>(number) << "'" << std::endl;
 		std::cout << "int: " << num << std::endl;
 	}
-	std::cout << "float: " << static_cast<float>(num) << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(num) << ".0" <<std::endl;
+	if (number <= 1000000 && number >= -1000000) {
+		std::cout << "float: " << static_cast<float>(number) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(number) << ".0" <<std::endl;
+	} else {
+		float	fnum = ft_stof(num);
+		double	dnum = ft_stod(num);
+		std::cout << "float: " << fnum << "f" << std::endl;
+		std::cout << "double: " << dnum <<std::endl;
+	}
 } ;
 
-void	outputinff( const std::string& str ){
+static void	outputinff( const std::string& str ){
 	std::cout << "char: impossible" << std::endl;
 	std::cout << "int: impossible" << std::endl;
 	std::cout << "float: " << str << std::endl;
@@ -168,9 +261,7 @@ void	outputinff( const std::string& str ){
 	std::cout << std::endl;
 } ;
 
-void	outputFloat( const std::string& str, bool overflowflag ) {
-	float f_num = ft_stof(str);
-
+static void	outputFloat( const std::string& str, bool overflowflag ) {
 	if (ft_isinff(str))
 		return outputinff(str);
 	if (overflowflag) {
@@ -184,19 +275,25 @@ void	outputFloat( const std::string& str, bool overflowflag ) {
 			std::cout << "char: '" << static_cast<char>(int_num) << "'" << std::endl;
 		std::cout << "Int: " << int_num << std::endl;
 	}
-	std::cout << "float: " << f_num << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(f_num) << ".0" << std::endl;
+	float fnum = ft_stof(str);
+	double dnum = ft_stod(str);
+	if ((checkInt(str) || checkInt2(fnum)) && echeck(fnum) && !sixcheck(ft_stoi(str))) {
+			std::cout << "float: " << fnum << ".0f" << std::endl;
+			std::cout << "double: " << dnum << ".0" << std::endl;
+	} else {
+		std::cout << "float: " << fnum << "f" << std::endl;
+		std::cout << "double: " << dnum << std::endl;
+	}
 } ;
 
-void	outputinf( const std::string& str ) {
+static void	outputinf( const std::string& str ) {
 	std::cout << "char: impossible" << std::endl;
 	std::cout << "int: impossible" << std::endl;
 	std::cout << "float: " << str << "f" << std::endl;
 	std::cout << "double: " << str << std::endl;
 }
 
-void	outputDouble( const std::string& str, bool overflowflag) {
-	double	d_num = ft_stod(str);
+static void	outputDouble( const std::string& str, bool overflowflag) {
 
 	if (ft_isinf(str))
 		return outputinf(str);
@@ -211,8 +308,15 @@ void	outputDouble( const std::string& str, bool overflowflag) {
 			std::cout << "char: '" << static_cast<char>(int_num) << "'" << std::endl;
 		std::cout << "int: " << int_num << std::endl;
 	}
-	std::cout << "float: " << static_cast<float>(d_num) << ".0f" << std::endl;
-	std::cout << "double: " << d_num << ".0" << std::endl;
+	float f_num = ft_stof(str);
+	double d_num = ft_stod(str);
+	if ((checkInt(str) || checkInt3(d_num)) && echeck(f_num) && !sixcheck(ft_stoi(str))) { //float doubleは数字を６個までしか保持できない
+		std::cout << "float: " << f_num << ".0f" << std::endl;
+		std::cout << "double: " << d_num << ".0" << std::endl;
+	} else {
+		std::cout << "float: " << f_num << "f" << std::endl;
+		std::cout << "double: " << d_num << std::endl;
+	}
 }
 
 //*---------------------------Member Function---------------------------------
@@ -224,7 +328,7 @@ void	ScalarConverter::convert( const std::string& input ) const {
 			outputChar(input.at(0));
 			break ;
 		case INT:
-			outputInt(ft_stoi(input), overflowflag);
+			outputInt(input, overflowflag);
 			break ;
 		case FLOAT:
 			outputFloat(input, overflowflag);

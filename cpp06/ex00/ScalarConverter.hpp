@@ -25,6 +25,7 @@ private:
 	};
 	ScalarConverter	&operator=( const ScalarConverter &rhs ) {
 		(void)rhs;
+		return *this;
 	};
 } ;
 
