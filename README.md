@@ -13,3 +13,5 @@
 ### cpp05 Try & Catch - [cpp05](https://github.com/yumatsui00/CPPmodules/tree/master/cpp05)
 
 ### cpp06 Casting -[cpp06](https://github.com/yumatsui00/CPPmodules/tree/master/cpp06)
+
+### cpp07 Template -[cpp07](https://github.com/yumatsui00/CPPmodules/tree/master/cpp07)

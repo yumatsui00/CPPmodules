@@ -320,7 +320,7 @@ static void	outputDouble( const std::string& str, bool overflowflag) {
 }
 
 //*---------------------------Member Function---------------------------------
-void	ScalarConverter::convert( const std::string& input ) const {
+void	ScalarConverter::convert( const std::string& input ) {
 	bool	overflowflag = false;
 	switch(getType(input, &overflowflag))
 	{
@@ -341,3 +341,14 @@ void	ScalarConverter::convert( const std::string& input ) const {
 			break ;
 	}
 } ;
+
+//!------------------------Constructors & Operator----------------------------
+ScalarConverter::ScalarConverter( void ) {};
+ScalarConverter::~ScalarConverter( void ) {};
+ScalarConverter::ScalarConverter( const ScalarConverter &src ) {
+	(void)src;
+};
+ScalarConverter	&ScalarConverter::operator=( const ScalarConverter &rhs ) {
+		(void)rhs;
+		return *this;
+};

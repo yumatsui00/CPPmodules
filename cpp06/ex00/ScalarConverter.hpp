@@ -13,20 +13,15 @@
 #define DOUBLE 4
 
 class ScalarConverter {
+private:
+//!------------------------Constructors & Operator----------------------------
+	ScalarConverter( void );
+	~ScalarConverter( void );
+	ScalarConverter( const ScalarConverter &src );
+	ScalarConverter	&operator=( const ScalarConverter &rhs );
 public:
 //*---------------------------Member Function---------------------------------
-	void	convert( const std::string& input ) const ;
-//!------------------------Constructors & Operator----------------------------
-	ScalarConverter( void ) {};
-	~ScalarConverter( void ) {};
-private:
-	ScalarConverter( const ScalarConverter &src ) {
-		(void)src;
-	};
-	ScalarConverter	&operator=( const ScalarConverter &rhs ) {
-		(void)rhs;
-		return *this;
-	};
+	static void	convert( const std::string& input ) ;
 } ;
 
 #endif

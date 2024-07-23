@@ -5,23 +5,14 @@
 # include "Data.hpp"
 
 class Serializer {
+private:
+	Serializer();
+	~Serializer();
+	Serializer( Serializer& src );
+	Serializer	operator=( Serializer& rhs );
 public:
-	Serializer() {};
-	~Serializer() {};
-	Serializer( Serializer& src ) {
-		(void)src;
-	};
-	Serializer	operator=( Serializer& rhs ) {
-		(void)rhs;
-		return *this;
-	};
-
-	uintptr_t	serialize(Data* ptr) {
-		return reinterpret_cast<uintptr_t>(ptr);
-	};
-	Data*		deserialize(uintptr_t raw) {
-		return reinterpret_cast<Data*>(raw);
-	};
+	static uintptr_t	serialize(Data* ptr) ;
+	static Data*		deserialize(uintptr_t raw);
 } ;
 
 #endif

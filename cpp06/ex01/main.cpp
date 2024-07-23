@@ -4,7 +4,6 @@
 #include <cstdlib>
 
 int main() {
-	Serializer	ser;
 	Data	data;
 
 	data.setStr("HELLO WORLD");
@@ -16,7 +15,7 @@ int main() {
 	uintptr_t ptr;
 
 	std::cout << std::endl;
-	ptr = ser.serialize(&data);
+	ptr = Serializer::serialize(&data);
 	std::cout << "---change done---" << std::endl;
 	std::cout << "serialize ptr = " << ptr << std::endl;
 	std::cout << std::endl;
@@ -28,7 +27,7 @@ int main() {
 	std::cout << "value   = " << data2->getStr() << std::endl;
 	std::cout << "address = " << data2 << std::endl;
 
-	data2 = ser.deserialize(ptr);
+	data2 = Serializer::deserialize(ptr);
 	std::cout << "data2 after info" << std::endl;
 	std::cout << "value   = " << data2->getStr() << std::endl;
 	std::cout << "address = " << data2 << std::endl;

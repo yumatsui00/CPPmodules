@@ -8,22 +8,14 @@
 class Data {
 public:
 //!------------------------Constructors & Operator----------------------------
-	Data() : _str( "hello world" ) {};
-	~Data() {};
-	Data( std::string str ) : _str(str) {};
-	Data( Data& src ) : _str( src.getStr() ) {};
-	Data	operator=( Data& rhs ) {
-		if (this != &rhs)
-			this->_str = rhs.getStr();
-		return *this;
-	} ;
+	Data();
+	~Data();
+	Data( std::string str );
+	Data( Data& src );
+	Data	operator=( Data& rhs );
 //*---------------------------Member Function---------------------------------
-	std::string	getStr() const {
-		return _str;
-	};
-	void		setStr( std::string str ) {
-		_str = str;
-	};
+	std::string	getStr() const;
+	void		setStr( std::string str ) ;
 private:
 	std::string	_str;
 
