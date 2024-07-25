@@ -1,0 +1,164 @@
+#include "BitcoinExchange.hpp"
+
+BitcoinExchange::BitcoinExchange( void ) {};
+BitcoinExchange::BitcoinExchange( const BitcoinExchange &src ) { *this = src; };
+BitcoinExchange& BitcoinExchange::operator=( const BitcoinExchange& rhs ) {
+	if (this != &rhs)
+		*this = rhs;
+	return *this;
+};
+BitcoinExchange::~BitcoinExchange( void ) {};
+
+BitcoinExchange::BitcoinExchange( const std::string &file ) {
+	std::fstream dataFile(file.c_str());
+	if (!dataFile)
+		throw BitcoinExchange::CantOpenDataFileException();
+	std::string line;
+	std::getline(dataFile, line);//skip first line
+	size_t	linecount = 0;
+	while (std::getline(dataFile, line)) {
+		++linecount;
+		std::string::size_type split_pos = line.find(',');
+		if (split_pos == std::string::npos) {
+			std::cerr << "Invalid argument in data, on line " << linecount << std::endl;
+			continue ;
+		}
+
+		std::string	date = line.substr(0, split_pos);
+		std::string	rate_str = line.substr(split_pos + 1);
+		//!rateに制限がないならvalueチェックを変える
+		if (dateCheck(date) == false || valueCheck(rate_str) == false) {
+			std::cerr << "Invalid date in data, on line " << linecount << std::endl;
+			continue;
+		}
+		double num;
+		std::istringstream(rate_str) >> num;
+		_data[date] = num;
+	}
+	dataFile.close();
+	if (_data.size() == 0)
+		throw NoValidDataException();
+}
+
+bool	BitcoinExchange::dateCheck( std::string& string ) {
+	//valid year 2000 ~ 2060: month 1~12
+	std::deque<std::string>		dates;
+	std::string					date;
+	std::istringstream			str(string);
+	while (std::getline(str, date, '-')) {
+		dates.push_back(date);
+	}
+	if (dates.size() != 3)
+		return false;
+	if (!checkYear(dates[0]))
+		return false;
+	if (!checkMonthDate(dates[1], dates[2]))
+		return false;
+	return true;
+}
+
+bool	is_num( std::string &year ) {
+	for(size_t i = 0; i < year.length(); i++ ) {
+		if (!std::isdigit(year.at(i)))
+			return false;
+	}
+	return true;
+}
+
+bool	BitcoinExchange::checkYear( std::string& year ) {
+	if (year.size() != 4 || !is_num(year))
+		return false;
+	size_t	num;
+	std::istringstream(year) >> num;
+	return 2000 <= num && num <= 2060;
+}
+
+bool	BitcoinExchange::checkMonthDate( std::string& month, std::string& date ) {
+	if (!(month.size() == 1 || month.size() == 2) || !is_num(month))
+		return false;
+	else if (!(date.size() == 1 || date.size() == 2) || !is_num(date))
+		return false;
+	size_t	m, d;
+	std::istringstream(month) >> m;
+	std::istringstream(date) >> d;
+	if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) {
+		return 1 <= d && d <= 31;
+	} else if (m == 4 || m == 6 || m == 9 || m == 11) {
+		return 1 <= d && d <= 30;
+	} else if (m == 2) {
+		return 1 <= d && d <= 28;
+	}
+	return false;
+}
+
+
+bool	isfloat( std::string& str ) {
+	bool dot = false;
+	for(size_t i = 0; i < str.length(); i++ ) {
+		if (str.at(i) == '.' && dot == false) {
+			dot = true;
+			continue;
+		}
+		if (!std::isdigit(str.at(i)))
+			return false;
+	}
+	if (str.at(str.length() - 1) == '.')
+		return false;
+	return true;
+}
+
+bool	BitcoinExchange::valueCheck( std::string& str ) {
+	if (!isfloat(str))
+		return false;
+	float num;
+	std::istringstream(str) >> num;
+	return (num >= 0 && num <= 1000);
+}
+
+
+void	BitcoinExchange::analyze( const std::string& inputFile ) {
+	std::fstream InputFile(inputFile.c_str());
+	if (!InputFile)
+		throw BitcoinExchange::CantOpenInputFileException();
+	std::string line;
+	std::getline(InputFile, line);//skip first line
+	while (std::getline(InputFile, line)) {
+		std::istringstream stream(line);
+		std::string	date, value;
+		char		spliter;
+
+		if (!(stream >> date >> spliter >> value)) {
+			std::cerr << "Error: Format error: Syntax error" << std::endl;
+			continue ;
+		} else if (spliter != '|') {
+			std::cerr << "Error: Format error: delimiter has to be '|'" << std::endl;
+			continue ;
+		} else if (!dateCheck(date)) {
+			std::cerr << "Error: Format error: Invalid date" << std::endl;
+			continue ;
+		} else if (!valueCheck(value)) {
+			std::cerr << "Error: Format error: Invalid value" << std::endl;
+			continue ;
+		}
+
+		double rate = findRate(date);
+		if (rate < 0)
+			std::cerr << "Error: no exchange rate beofore this date" << std::endl;
+		else {
+			double val;
+			std::istringstream(value) >> val;
+			std::cout << date << " => " << value << " = " <<  val * rate << std::endl;
+		}
+	}
+	InputFile.close();
+	return ;
+}
+
+double	BitcoinExchange::findRate( std::string &date ) {
+	std::map<std::string, double>::iterator it = _data.upper_bound(date);
+	if (it != _data.begin()) {
+		it--;
+		return it->second;
+	} else 
+		return -1;
+}
