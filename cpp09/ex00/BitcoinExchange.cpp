@@ -9,6 +9,21 @@ BitcoinExchange& BitcoinExchange::operator=( const BitcoinExchange& rhs ) {
 };
 BitcoinExchange::~BitcoinExchange( void ) {};
 
+bool	isfloat( std::string& str ) {
+	bool dot = false;
+	for(size_t i = 0; i < str.length(); i++ ) {
+		if (str.at(i) == '.' && dot == false) {
+			dot = true;
+			continue;
+		}
+		if (!std::isdigit(str.at(i)))
+			return false;
+	}
+	if (str.at(str.length() - 1) == '.')
+		return false;
+	return true;
+}
+
 BitcoinExchange::BitcoinExchange( const std::string &file ) {
 	std::fstream dataFile(file.c_str());
 	if (!dataFile)
@@ -26,8 +41,8 @@ BitcoinExchange::BitcoinExchange( const std::string &file ) {
 
 		std::string	date = line.substr(0, split_pos);
 		std::string	rate_str = line.substr(split_pos + 1);
-		//!rateに制限がないならvalueチェックを変える
-		if (dateCheck(date) == false || valueCheck(rate_str) == false) {
+		//!rateに制限があるならvalueチェックを変える
+		if (dateCheck(date) == false || isfloat(rate_str) == false) {
 			std::cerr << "Invalid date in data, on line " << linecount << std::endl;
 			continue;
 		}
@@ -52,7 +67,7 @@ bool	BitcoinExchange::dateCheck( std::string& string ) {
 		return false;
 	if (!checkYear(dates[0]))
 		return false;
-	if (!checkMonthDate(dates[1], dates[2]))
+	if (!checkMonthDate(dates[0], dates[1], dates[2]))
 		return false;
 	return true;
 }
@@ -73,7 +88,7 @@ bool	BitcoinExchange::checkYear( std::string& year ) {
 	return 2000 <= num && num <= 2060;
 }
 
-bool	BitcoinExchange::checkMonthDate( std::string& month, std::string& date ) {
+bool	BitcoinExchange::checkMonthDate( std::string& year, std::string& month, std::string& date ) {
 	if (!(month.size() == 1 || month.size() == 2) || !is_num(month))
 		return false;
 	else if (!(date.size() == 1 || date.size() == 2) || !is_num(date))
@@ -86,26 +101,17 @@ bool	BitcoinExchange::checkMonthDate( std::string& month, std::string& date ) {
 	} else if (m == 4 || m == 6 || m == 9 || m == 11) {
 		return 1 <= d && d <= 30;
 	} else if (m == 2) {
-		return 1 <= d && d <= 28;
+		int y;
+		std::istringstream(year) >> y;
+		if (y % 4 == 0)
+			return 1 <= d && d <= 29;
+		else
+			return 1 <= d && d <= 28;
 	}
 	return false;
 }
 
 
-bool	isfloat( std::string& str ) {
-	bool dot = false;
-	for(size_t i = 0; i < str.length(); i++ ) {
-		if (str.at(i) == '.' && dot == false) {
-			dot = true;
-			continue;
-		}
-		if (!std::isdigit(str.at(i)))
-			return false;
-	}
-	if (str.at(str.length() - 1) == '.')
-		return false;
-	return true;
-}
 
 bool	BitcoinExchange::valueCheck( std::string& str ) {
 	if (!isfloat(str))
@@ -159,6 +165,6 @@ double	BitcoinExchange::findRate( std::string &date ) {
 	if (it != _data.begin()) {
 		it--;
 		return it->second;
-	} else 
+	} else
 		return -1;
 }

@@ -23,7 +23,7 @@ public:
 
 	bool	dateCheck( std::string &date );
 	bool	checkYear( std::string& year );
-	bool	checkMonthDate( std::string& month, std::string& date );
+	bool	checkMonthDate( std::string& year, std::string& month, std::string& date );
 	bool	valueCheck( std::string& str );
 
 	void	analyze( const std::string& inputFile );

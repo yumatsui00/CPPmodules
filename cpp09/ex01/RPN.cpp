@@ -45,7 +45,6 @@ long	calculate(int a, int b, char sign) {
 		return a / b;
 }
 
-
 void	RPN::calc( std::string str ) {
 	if (str.empty())
 		throw SyntaxErrorException();
