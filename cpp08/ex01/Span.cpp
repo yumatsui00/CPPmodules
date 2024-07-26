@@ -2,11 +2,11 @@
 
 Span::Span( void ) {};
 
-Span::Span( unsigned int n ) : _currentsize(0), _maxsize(n) {};
+Span::Span( unsigned int n ) : _maxsize(n) {};
 
 Span::~Span( void ) {};
 
-Span::Span( Span &src ) : _currentsize(src._currentsize), _maxsize(src._maxsize) {
+Span::Span( Span &src ) : _maxsize(src._maxsize) {
 	for (std::vector<int>::iterator it = src._strage.begin(); it != src._strage.end(); it++) {
 		_strage.push_back((*it));
 	}
@@ -14,7 +14,6 @@ Span::Span( Span &src ) : _currentsize(src._currentsize), _maxsize(src._maxsize)
 
 Span&	Span::operator=( Span &rhs ) {
 	if (this != &rhs) {
-		_currentsize = rhs._currentsize;
 		_maxsize = rhs._maxsize;
 		for (std::vector<int>::iterator it = rhs._strage.begin(); it != rhs._strage.end(); it++) {
 			_strage.push_back((*it));
@@ -24,27 +23,32 @@ Span&	Span::operator=( Span &rhs ) {
 }
 
 void	Span::addNumber( int num ) {
-	if (_currentsize < _maxsize) {
+	if (_strage.size() < _maxsize) {
 		_strage.push_back(num);
-		_currentsize++;
 	}
 	else
-		std::cout << "strage is full" << std::endl;
+		throw FullStrageException();
+}
+
+void	Span::addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
+	if (this->_strage.size() + std::distance(begin, end) > _maxsize) {
+		throw FullStrageException();
+	}
+	this->_strage.insert(_strage.end(), begin, end);
 }
 
 unsigned int	Span::shortestSpan( void ) {
 	unsigned int	ret = 4294967295;
-	if (_currentsize <= 1)
+	if (_strage.size() <= 1)
 		return (0);
-	if (_currentsize == 2) {
+	if (_strage.size() == 2) {
 		ret = (unsigned int)std::abs(long(_strage[0]) - long(_strage[1]));
 		return (ret);
 	}
 	std::vector<int>::iterator it = _strage.begin();
 	while (it != _strage.end()) {
 		for (std::vector<int>::iterator it2 = it + 1; it2 != _strage.end(); it2++) {
-			unsigned int check = (unsigned int)std::abs((*it) - (*it2));
-			std::cout << "check " << check << std::endl;
+			unsigned int check = (unsigned int)std::abs(long(*it) - long(*it2));
 			if (check < ret)
 				ret = check;
 		}
@@ -57,7 +61,7 @@ unsigned int	Span::longestSpan( void ) {
 	unsigned int	ret;
 	long			min;
 	long			max;
-	if (_currentsize <= 1)
+	if (_strage.size() <= 1)
 		return (0);
 	std::vector<int>::iterator it = _strage.begin();
 	min = (*it);
