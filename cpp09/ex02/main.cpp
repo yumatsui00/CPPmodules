@@ -17,7 +17,9 @@ int main(int argc, char** argv) {
 	}
 	std::string			unsorted = "Before:  ";
 	std::vector<pairs>	vec;
-	std::vector<int>	vec_ans;
+	std::deque<pairs>	deq;
+	std::vector<int>	ans;
+
 
 	for (int i = 1; i < argc; i++) {
 		if (!isAllDigits(argv[i])) {
@@ -34,23 +36,36 @@ int main(int argc, char** argv) {
 		unsorted += " ";
 		pair.num = num;
 		vec.push_back(pair);
-		vec_ans.push_back(num);
+		deq.push_back(pair);
+		ans.push_back(num);
 	}
 	//clock()はプログラムスタート時からのクロックチックを取得
 	clock_t	start = clock();
 	std::vector<pairs> res = vector_sort(vec);
 	clock_t	end = clock();
 	double time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0;
-	std::sort(vec_ans.begin(), vec_ans.end());
+	std::sort(ans.begin(), ans.end());
 	std::cout << unsorted << std::endl;
-	std::cout << "answer" << std::endl;
 	display(res);
 	for (std::size_t i = 0; i < res.size(); i++) {
-		if (res[i].num != vec_ans[i]) {
+		if (res[i].num != ans[i]) {
 			std::cerr << "Vector sort failed" << std::endl;
 			return 1;
 		}
 	}
 	std::cout 	<< "Time to process a range of " << vec.size() << " elements with "
 				<< "std::vector : " << time << " us" << std::endl;
+
+	start = clock();
+	std::deque<pairs> res2 = deque_sort(deq);
+	end = clock();
+	time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0;
+	for (std::size_t i = 0; i < res.size(); i++) {
+		if (res[i].num != ans[i]) {
+			std::cerr << "Deque sort failed" << std::endl;
+			return 1;
+		}
+	}
+	std::cout 	<< "Time to process a range of " << vec.size() << " elements with "
+				<< "std::deque  : " << time << " us" << std::endl;
 }

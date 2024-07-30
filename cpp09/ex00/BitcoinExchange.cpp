@@ -57,17 +57,20 @@ BitcoinExchange::BitcoinExchange( const std::string &file ) {
 
 bool	BitcoinExchange::dateCheck( std::string& string ) {
 	//valid year 2000 ~ 2060: month 1~12
-	std::deque<std::string>		dates;
-	std::string					date;
 	std::istringstream			str(string);
-	while (std::getline(str, date, '-')) {
-		dates.push_back(date);
-	}
-	if (dates.size() != 3)
+	std::string	year, month, date, check;
+	if (!std::getline(str, year, '-'))
 		return false;
-	if (!checkYear(dates[0]))
+	if (!std::getline(str, month, '-'))
 		return false;
-	if (!checkMonthDate(dates[0], dates[1], dates[2]))
+	if (!std::getline(str, date, '-'))
+		return false;
+	if (std::getline(str, check, '-'))
+		return false;
+
+	if (!checkYear(year))
+		return false;
+	if (!checkMonthDate(year, month, date))
 		return false;
 	return true;
 }
